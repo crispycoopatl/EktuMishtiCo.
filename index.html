@@ -51,7 +51,7 @@
     /* HERO */
     .hero {
         text-align: center;
-        padding-bottom: 60px;
+        padding-bottom: 10px;
     }
 
     .brand {
@@ -93,7 +93,7 @@
 
     /* SECTION */
     .section {
-        margin-top: 70px;
+        margin-top: 25px;
     }
 
     .title {
@@ -159,6 +159,14 @@
     margin-top: 15px;
     box-shadow: 0 15px 35px rgba(184,107,122,0.25);
 }
+.pricing-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+    margin-top: 5px;
+    background: #fff7fa;
+}
 
     footer {
         text-align:center;
@@ -180,13 +188,15 @@
 <!-- HERO -->
 <div class="hero">
     <div class="brand">Ektu Mishti Co.</div>
-    <div class="tagline">Dessert Catering & Sweet Boxes • Atlanta, GA</div>
+	<div class="tagline">Handcrafted Sweets for Every Celebration</div>
 
     <div class="hero-text">
-        Soft, syrup-soaked Kalojam made for celebrations, gifting, and special events.
+	Fresh Kalojam made to order for gifting, gatherings, corporate events, weddings, and special occasions throughout Atlanta.
     </div>
 
-    <a class="btn" href="mailto:Mishti@EktuMishtiCo.com?subject=Catering%20Order">Request Order</a>
+	<a class="btn" href="mailto:mishti@ektumishtico.com?subject=Order%20Request%20-%20Ektu%20Mishti%20Co.&body=Name:%0D%0A%0D%0APhone%20Number:%0D%0A%0D%0AOrder%20Details:%0D%0A(4%20Piece%20Box%20/%206%20Piece%20Box%20/%209%20Piece%20Box%20/%20Custom%20Order)%0D%0A%0D%0AQuantity:%0D%0A%0D%0ARequested%20Date:%0D%0A%0D%0APickup%20or%20Delivery:%0D%0A%0D%0AIf%20Pickup:%0D%0APickup%20Area:%20Doraville,%20GA%2030340%0D%0A%0D%0AIf%20Delivery:%0D%0ADelivery%20Address:%0D%0A%0D%0AAdditional%20Notes:%0D%0A">
+    Order Now
+	</a>
     <a class="btn" href="tel:4044412984">Call</a>
 </div>
 
@@ -226,27 +236,53 @@
     </div>
 </div>
 
+
+<div class="section">
+    <div class="title">Why Choose Ektu Mishti Co.</div>
+
+    <div class="card">
+        <div class="grid">
+            <div class="box">
+                <h4>Handcrafted</h4>
+                Made in small batches with care.
+            </div>
+
+            <div class="box">
+                <h4>Fresh</h4>
+                Prepared to order for the best quality.
+            </div>
+
+            <div class="box">
+                <h4>Perfect for Events</h4>
+                Ideal for gifting, parties, and celebrations.
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- PRICING -->
 <div class="section">
-    <div class="title">Pricing</div>
-
+    <div class="title">Sweet Box Collection</div>
     <div class="card">
         <div class="grid">
             <div class="box">
                 <h4>4 Piece Box</h4>
                 $4
-            </div>
+				<img src="4Piece.JPG" class="pricing-img" alt="Kalojam">
+            </div>      
             <div class="box">
                 <h4>6 Piece Box</h4>
                 $6
+				<img src="6Piece.JPG" class="pricing-img" alt="Kalojam">
             </div>
             <div class="box">
                 <h4>9 Piece Box</h4>
                 $9
+				<img src="9Piece.JPG" class="pricing-img" alt="Kalojam">
             </div>
             <div class="box">
                 <h4>Custom Order</h4>
-                $1 per piece
+                Starting at $1 per piece
             </div>
         </div>
     </div>
@@ -276,7 +312,7 @@
 
 <!-- RECENT ORDER -->
 <div class="section">
-    <div class="title">Recent Order</div>
+    <div class="title"><div class="title">Gallery</div></div>
 
     <div class="card">
         <div class="img-placeholder">
@@ -302,8 +338,7 @@
 
 <!-- CONTACT -->
 <div class="section">
-    <div class="title">Contact</div>
-
+<div class="title">Let's Make Your Event Sweeter</div>
     <div class="text">
         Email: Mishti@EktuMishtiCo.com<br/>
         Phone: 404-441-2984<br/>
