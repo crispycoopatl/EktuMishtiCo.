@@ -168,6 +168,91 @@
     background: #fff7fa;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background: rgba(45, 27, 30, 0.55);
+    padding: 30px 15px;
+}
+
+.modal-content {
+    background: #fff7fa;
+    margin: auto;
+    max-width: 620px;
+    border-radius: 24px;
+    position: relative;
+    box-shadow: 0 25px 80px rgba(45, 27, 30, 0.35);
+}
+
+.close {
+    position: absolute;
+    top: 16px;
+    right: 22px;
+    font-size: 32px;
+    color: #b86b7a;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.order-form {
+    padding: 35px;
+}
+
+.order-form h2 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #b86b7a;
+    text-align: center;
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+.order-form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    color: #5d3b40;
+    font-size: 14px;
+}
+
+.order-form input,
+.order-form select,
+.order-form textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ead0d6;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    background: #fffafd;
+}
+
+.order-form textarea {
+    height: 90px;
+}
+
+.total-box {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 14px;
+    background: #fff1f5;
+    color: #b86b7a;
+    font-weight: 600;
+    text-align: center;
+    font-size: 18px;
+}
+
+.payment-note {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #6b4a50;
+    text-align: center;
+    line-height: 1.5;
+}
     footer {
         text-align:center;
         margin-top: 80px;
@@ -194,12 +279,70 @@
 	Fresh Kalojam made to order for gifting, gatherings, corporate events, weddings, and special occasions throughout Atlanta.
     </div>
 
-	<a class="btn" href="mailto:mishti@ektumishtico.com?subject=Order%20Request%20-%20Ektu%20Mishti%20Co.&body=Name:%0D%0A%0D%0APhone%20Number:%0D%0A%0D%0AOrder%20Details:%0D%0A(4%20Piece%20Box%20/%206%20Piece%20Box%20/%209%20Piece%20Box%20/%20Custom%20Order)%0D%0A%0D%0AQuantity:%0D%0A%0D%0ARequested%20Date:%0D%0A%0D%0APickup%20or%20Delivery:%0D%0A%0D%0AIf%20Pickup:%0D%0APickup%20Area:%20Doraville,%20GA%2030340%0D%0A%0D%0AIf%20Delivery:%0D%0ADelivery%20Address:%0D%0A%0D%0AAdditional%20Notes:%0D%0A">
-    Order Now
-	</a>
+	<a class="btn" href="#" onclick="openOrderForm()">Order Now</a>
 	<a class="btn" href="sms:4044412984?body=Hi%20Ektu%20Mishti%20Co.%2C%20I%20would%20like%20to%20place%20an%20order.">
     Text Us
 	</a>
+</div>
+
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeOrderForm()">&times;</span>
+
+        <form class="order-form" action="https://formsubmit.co/mishti@ektumishtico.com" method="POST">
+            <h2>Place Your Order</h2>
+
+            <input type="hidden" name="_subject" value="New Order Request - Ektu Mishti Co.">
+
+            <label>Name</label>
+            <input type="text" name="Name" required>
+
+            <label>Email</label>
+            <input type="email" name="Email" required>
+
+            <label>Phone Number</label>
+            <input type="tel" name="Phone Number" required>
+
+            <label>Order Type</label>
+            <select id="orderType" name="Order Type" required onchange="calculateTotal()">
+                <option value="">Select</option>
+                <option value="4 Piece Box" data-price="4">4 Piece Box - $4</option>
+                <option value="6 Piece Box" data-price="6">6 Piece Box - $6</option>
+                <option value="9 Piece Box" data-price="9">9 Piece Box - $9</option>
+            </select>
+
+            <label>Quantity</label>
+            <input type="number" id="quantity" name="Quantity" min="1" required oninput="calculateTotal()">
+
+            <label>Requested Date</label>
+            <input type="date" id="requestedDate" name="Requested Date" required>
+
+            <label>Pickup or Delivery</label>
+            <select name="Pickup or Delivery" required>
+                <option value="">Select</option>
+                <option value="Pickup - Doraville, GA 30340">Pickup - Doraville, GA 30340</option>
+                <option value="Delivery">Delivery</option>
+            </select>
+
+            <label>Delivery Address</label>
+            <input type="text" name="Delivery Address" placeholder="Only needed for delivery">
+
+            <label>Additional Notes</label>
+            <textarea name="Additional Notes"></textarea>
+
+            <div class="total-box">
+                Estimated Total: <span id="total">$0.00</span>
+            </div>
+
+            <input type="hidden" id="estimatedTotal" name="Estimated Total">
+
+            <p class="payment-note">
+                Final pricing, invoice, and payment instructions will be provided by email after your order request is reviewed.
+            </p>
+
+            <button type="submit" class="btn">Submit Order</button>
+        </form>
+    </div>
 </div>
 
 <!-- PRODUCT -->
@@ -353,6 +496,40 @@
 </footer>
 
 </div>
+<script>
+function openOrderForm() {
+    document.getElementById("orderModal").style.display = "block";
+}
 
+function closeOrderForm() {
+    document.getElementById("orderModal").style.display = "none";
+}
+
+function calculateTotal() {
+    const orderType = document.getElementById("orderType");
+    const quantity = document.getElementById("quantity").value || 0;
+    const price = orderType.options[orderType.selectedIndex]?.dataset.price || 0;
+    const total = price * quantity;
+
+    document.getElementById("total").innerText = "$" + total.toFixed(2);
+    document.getElementById("estimatedTotal").value = "$" + total.toFixed(2);
+}
+
+window.onload = function () {
+    const dateInput = document.getElementById("requestedDate");
+    const today = new Date();
+    today.setDate(today.getDate() + 2);
+
+    const minDate = today.toISOString().split("T")[0];
+    dateInput.setAttribute("min", minDate);
+};
+
+window.onclick = function(event) {
+    const modal = document.getElementById("orderModal");
+    if (event.target === modal) {
+        closeOrderForm();
+    }
+};
+</script>
 </body>
 </html>
