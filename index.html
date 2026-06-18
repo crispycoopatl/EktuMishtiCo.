@@ -253,6 +253,35 @@
     text-align: center;
     line-height: 1.5;
 }
+
+.box-qty-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-top: 12px;
+    padding: 14px;
+    border: 1px solid #ead0d6;
+    border-radius: 14px;
+    background: #fffafd;
+}
+
+.box-qty-row span {
+    color: #5d3b40;
+    font-size: 14px;
+}
+
+.box-qty-row input {
+    width: 85px;
+    margin: 0;
+}
+
+.delivery-warning {
+    color: #c75b6d;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 13px;
+}
     footer {
         text-align:center;
         margin-top: 80px;
@@ -293,6 +322,8 @@
             <h2>Place Your Order</h2>
 
             <input type="hidden" name="_subject" value="New Order Request - Ektu Mishti Co.">
+			<input type="hidden" name="_captcha" value="false">
+			<input type="hidden" name="_next" value="https://shop.ektumishtico.com/thank-you.html">
 
             <label>Name</label>
             <input type="text" name="Name" required>
@@ -303,26 +334,41 @@
             <label>Phone Number</label>
             <input type="tel" name="Phone Number" required>
 
-            <label>Order Type</label>
-            <select id="orderType" name="Order Type" required onchange="calculateTotal()">
-                <option value="">Select</option>
-                <option value="4 Piece Box" data-price="4">4 Piece Box - $4</option>
-                <option value="6 Piece Box" data-price="6">6 Piece Box - $6</option>
-                <option value="9 Piece Box" data-price="9">9 Piece Box - $9</option>
-            </select>
+            <label>Order Details</label>
 
-            <label>Quantity</label>
-            <input type="number" id="quantity" name="Quantity" min="1" required oninput="calculateTotal()">
+			<div class="box-qty-row">
+				<span>4 Piece Box — $4</span>
+				<input type="number" id="qty4" name="4 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
+			</div>
+
+			<div class="box-qty-row">
+				<span>6 Piece Box — $6</span>
+				<input type="number" id="qty6" name="6 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
+			</div>
+
+			<div class="box-qty-row">
+				<span>9 Piece Box — $9</span>
+				<input type="number" id="qty9" name="9 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
+			</div>
+			
+			<div class="box-qty-row">
+				<span>Individual Pieces — $1 each</span>
+				<input type="number" id="qtySingle" name="Individual Piece Quantity" min="0" value="0" oninput="calculateTotal()">
+			</div>
+
+			<div id="orderWarning" class="delivery-warning" style="display:none;">
+				Please select at least one box.
+			</div>
 
             <label>Requested Date</label>
             <input type="date" id="requestedDate" name="Requested Date" required>
 
             <label>Pickup or Delivery</label>
-            <select name="Pickup or Delivery" required>
-                <option value="">Select</option>
-                <option value="Pickup - Doraville, GA 30340">Pickup - Doraville, GA 30340</option>
-                <option value="Delivery">Delivery</option>
-            </select>
+            <select name="Pickup or Delivery" id="deliveryMethod" required onchange="calculateTotal()">
+			<option value="">Select</option>
+			<option value="Pickup - Doraville, GA 30340">Pickup - Doraville, GA 30340</option>
+			<option value="Delivery">Delivery</option>
+			</select>
 
             <label>Delivery Address</label>
             <input type="text" name="Delivery Address" placeholder="Only needed for delivery">
@@ -333,16 +379,16 @@
             <div class="total-box">
                 Estimated Total: <span id="total">$0.00</span>
             </div>
+			
+			<div id="deliveryWarning" class="delivery-warning" style="display:none;">
+			Delivery orders require a minimum purchase of $12.
+			</div>
 
             <input type="hidden" id="estimatedTotal" name="Estimated Total">
 
             <p class="payment-note">
                 Final pricing, invoice, and payment instructions will be provided by email after your order request is reviewed.
             </p>
-
-            <button type="submit" class="btn">Submit Order</button>
-			<input type="hidden" name="_next" value="https://shop.ektumishtico.com/thank-you.html">
-			
         </form>
     </div>
 </div>
@@ -501,29 +547,91 @@
 <script>
 function openOrderForm() {
     document.getElementById("orderModal").style.display = "block";
+    calculateTotal();
 }
 
 function closeOrderForm() {
     document.getElementById("orderModal").style.display = "none";
 }
 
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
+function setMinimumDate(total) {
+    const dateInput = document.getElementById("requestedDate");
+    const today = new Date();
+
+    const daysToAdd = total > 100 ? 7 : 2;
+    today.setDate(today.getDate() + daysToAdd);
+
+    const minDate = formatDate(today);
+    dateInput.min = minDate;
+
+    if (dateInput.value && dateInput.value < minDate) {
+        dateInput.value = "";
+    }
+}
+
 function calculateTotal() {
-    const orderType = document.getElementById("orderType");
-    const quantity = document.getElementById("quantity").value || 0;
-    const price = orderType.options[orderType.selectedIndex]?.dataset.price || 0;
-    const total = price * quantity;
+    const qty4 = parseInt(document.getElementById("qty4").value) || 0;
+    const qty6 = parseInt(document.getElementById("qty6").value) || 0;
+    const qty9 = parseInt(document.getElementById("qty9").value) || 0;
+    const qtySingle = parseInt(document.getElementById("qtySingle").value) || 0;
+
+    const total = (qty4 * 4) + (qty6 * 6) + (qty9 * 9) + (qtySingle * 1);
 
     document.getElementById("total").innerText = "$" + total.toFixed(2);
     document.getElementById("estimatedTotal").value = "$" + total.toFixed(2);
+
+    setMinimumDate(total);
+
+    const deliveryMethod = document.getElementById("deliveryMethod").value;
+    const submitButton = document.querySelector('.order-form button[type="submit"]');
+
+    const deliveryWarning = document.getElementById("deliveryWarning");
+    const orderWarning = document.getElementById("orderWarning");
+    const singleWarning = document.getElementById("singleWarning");
+
+    const noBoxesSelected = total === 0;
+    const deliveryTooLow = deliveryMethod === "Delivery" && total < 12;
+    const individualTooLow = qtySingle > 0 && qtySingle < 6;
+
+    if (noBoxesSelected) {
+        orderWarning.style.display = "block";
+    } else {
+        orderWarning.style.display = "none";
+    }
+
+    if (deliveryTooLow) {
+        deliveryWarning.style.display = "block";
+    } else {
+        deliveryWarning.style.display = "none";
+    }
+
+    if (individualTooLow) {
+        singleWarning.style.display = "block";
+    } else {
+        singleWarning.style.display = "none";
+    }
+
+    if (noBoxesSelected || deliveryTooLow || individualTooLow) {
+        submitButton.disabled = true;
+        submitButton.style.opacity = "0.5";
+        submitButton.style.cursor = "not-allowed";
+    } else {
+        submitButton.disabled = false;
+        submitButton.style.opacity = "1";
+        submitButton.style.cursor = "pointer";
+    }
 }
 
 window.onload = function () {
-    const dateInput = document.getElementById("requestedDate");
-    const today = new Date();
-    today.setDate(today.getDate() + 2);
-
-    const minDate = today.toISOString().split("T")[0];
-    dateInput.setAttribute("min", minDate);
+    setMinimumDate(0);
+    calculateTotal();
 };
 
 window.onclick = function(event) {
