@@ -282,6 +282,12 @@
     margin-top: 10px;
     font-size: 13px;
 }
+.shipping-note{
+    font-size:13px;
+    color:#8a6a70;
+    margin-top:8px;
+    line-height:1.5;
+}
     footer {
         text-align:center;
         margin-top: 80px;
@@ -368,11 +374,22 @@
             <input type="date" id="requestedDate" name="Requested Date" required>
 
             <label>Pickup or Delivery</label>
-            <select name="Pickup or Delivery" id="deliveryMethod" required onchange="calculateTotal()">
-			<option value="">Select</option>
-			<option value="Pickup - Doraville, GA 30340">Pickup - Doraville, GA 30340</option>
-			<option value="Delivery">Delivery</option>
+			<select id="deliveryMethod" name="Pickup or Delivery" required onchange="calculateTotal()">
+				<option value="">Select</option>
+				<option value="Pickup - Doraville, GA 30340">
+					Pickup - Doraville, GA 30340
+				</option>
+				<option value="Delivery">
+					Local Delivery
+				</option>
+				<option value="Shipping">
+					Ship Within USA
+				</option>
 			</select>
+
+			<p class="shipping-note">
+				Shipping available within the USA. Final shipping cost will be confirmed by email.
+			</p>
 
             <label>Delivery Address</label>
             <input type="text" name="Delivery Address" placeholder="Only needed for delivery">
