@@ -337,17 +337,17 @@
             <label>Order Details</label>
 
 			<div class="box-qty-row">
-				<span>4 Piece Box — $4</span>
+				<span>4 Piece Box — $4.99</span>
 				<input type="number" id="qty4" name="4 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
 			</div>
 
 			<div class="box-qty-row">
-				<span>6 Piece Box — $6</span>
+				<span>6 Piece Box — $6.99</span>
 				<input type="number" id="qty6" name="6 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
 			</div>
 
 			<div class="box-qty-row">
-				<span>9 Piece Box — $9</span>
+				<span>9 Piece Box — $9.99</span>
 				<input type="number" id="qty9" name="9 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
 			</div>
 			
@@ -358,6 +358,10 @@
 
 			<div id="orderWarning" class="delivery-warning" style="display:none;">
 				Please select at least one box.
+			</div>
+			
+			<div id="largeOrderWarning" class="delivery-warning" style="display:none;">
+				Orders over $500 require custom scheduling. Please text us before placing a large order.
 			</div>
 
             <label>Requested Date</label>
@@ -407,11 +411,6 @@
             </div>
 
             <div class="box">
-                <h4>Minimum Order</h4>
-                50 pieces of Kalojam
-            </div>
-
-            <div class="box">
                 <h4>Pre-Order</h4>
                 24–48 hours required
             </div>
@@ -454,17 +453,17 @@
         <div class="grid">
             <div class="box">
                 <h4>4 Piece Box</h4>
-                $4
+                $4.99
 				<img src="4Piece.jpg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>      
             <div class="box">
                 <h4>6 Piece Box</h4>
-                $6
+                $6.99
 				<img src="6Piece.jpg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
             <div class="box">
                 <h4>9 Piece Box</h4>
-                $9
+                $9.99
 				<img src="9Piece.jpg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
             <div class="box">
@@ -533,9 +532,7 @@
     </div>
 
     <div style="text-align:center;">
-	<a class="btn" href="mailto:mishti@ektumishtico.com?subject=Order%20Request%20-%20Ektu%20Mishti%20Co.&body=Name:%0D%0A%0D%0APhone%20Number:%0D%0A%0D%0AOrder%20Details:%0D%0A(4%20Piece%20Box%20/%206%20Piece%20Box%20/%209%20Piece%20Box%20/%20Custom%20Order)%0D%0A%0D%0AQuantity:%0D%0A%0D%0ARequested%20Date:%0D%0A%0D%0APickup%20or%20Delivery:%0D%0A%0D%0AIf%20Pickup:%0D%0APickup%20Area:%20Doraville,%20GA%2030340%0D%0A%0D%0AIf%20Delivery:%0D%0ADelivery%20Address:%0D%0A%0D%0AAdditional%20Notes:%0D%0A">
-    Email Order
-	</a>
+		<a class="btn" href="#" onclick="openOrderForm()">Order Now</a>
     </div>
 </div>
 
@@ -582,7 +579,7 @@ function calculateTotal() {
     const qty9 = parseInt(document.getElementById("qty9").value) || 0;
     const qtySingle = parseInt(document.getElementById("qtySingle").value) || 0;
 
-    const total = (qty4 * 4) + (qty6 * 6) + (qty9 * 9) + (qtySingle * 1);
+    const total = (qty4 * 4.99) + (qty6 * 6.99) + (qty9 * 9.99) + (qtySingle * 1);
 
     document.getElementById("total").innerText = "$" + total.toFixed(2);
     document.getElementById("estimatedTotal").value = "$" + total.toFixed(2);
@@ -599,6 +596,21 @@ function calculateTotal() {
     const noBoxesSelected = total === 0;
     const deliveryTooLow = deliveryMethod === "Delivery" && total < 12;
     const individualTooLow = qtySingle > 0 && qtySingle < 6;
+	
+	const orderTooLarge = total > 300;
+	const largeOrderWarning = document.getElementById("largeOrderWarning");
+
+	if (orderTooLarge) {
+		largeOrderWarning.style.display = "block";
+	} else {
+		largeOrderWarning.style.display = "none";
+	}
+
+	if (noBoxesSelected || deliveryTooLow || individualTooLow || orderTooLarge) {
+		submitButton.disabled = true;  
+		submitButton.style.opacity = "0.5";
+		submitButton.style.cursor = "not-allowed";
+    }
 
     if (noBoxesSelected) {
         orderWarning.style.display = "block";
