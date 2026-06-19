@@ -288,6 +288,29 @@
     margin-top:8px;
     line-height:1.5;
 }
+.submit-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg,#d88a9a,#b86b7a);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(184,107,122,0.25);
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
     footer {
         text-align:center;
         margin-top: 80px;
@@ -402,7 +425,11 @@
             </div>
 			
 			<div id="deliveryWarning" class="delivery-warning" style="display:none;">
-			Delivery orders require a minimum purchase of $12.
+			Delivery orders require a minimum purchase of $50.
+			</div>
+			
+			<div id="singleWarning" class="delivery-warning" style="display:none;">
+				Individual orders require a minimum of 50 pieces.
 			</div>
 
             <input type="hidden" id="estimatedTotal" name="Estimated Total">
@@ -410,6 +437,8 @@
             <p class="payment-note">
                 Final pricing, invoice, and payment instructions will be provided by email after your order request is reviewed.
             </p>
+			<button type="submit" class="submit-btn">Submit Order</button>
+
         </form>
     </div>
 </div>
@@ -608,46 +637,17 @@ function calculateTotal() {
 
     const deliveryWarning = document.getElementById("deliveryWarning");
     const orderWarning = document.getElementById("orderWarning");
-    const singleWarning = document.getElementById("singleWarning");
+    const largeOrderWarning = document.getElementById("largeOrderWarning");
 
     const noBoxesSelected = total === 0;
-    const deliveryTooLow = deliveryMethod === "Delivery" && total < 12;
-    const individualTooLow = qtySingle > 0 && qtySingle < 6;
-	
-	const orderTooLarge = total > 300;
-	const largeOrderWarning = document.getElementById("largeOrderWarning");
+    const deliveryTooLow = deliveryMethod === "Delivery" && total < 50;
+    const orderTooLarge = total > 500;
 
-	if (orderTooLarge) {
-		largeOrderWarning.style.display = "block";
-	} else {
-		largeOrderWarning.style.display = "none";
-	}
+    orderWarning.style.display = noBoxesSelected ? "block" : "none";
+    deliveryWarning.style.display = deliveryTooLow ? "block" : "none";
+    largeOrderWarning.style.display = orderTooLarge ? "block" : "none";
 
-	if (noBoxesSelected || deliveryTooLow || individualTooLow || orderTooLarge) {
-		submitButton.disabled = true;  
-		submitButton.style.opacity = "0.5";
-		submitButton.style.cursor = "not-allowed";
-    }
-
-    if (noBoxesSelected) {
-        orderWarning.style.display = "block";
-    } else {
-        orderWarning.style.display = "none";
-    }
-
-    if (deliveryTooLow) {
-        deliveryWarning.style.display = "block";
-    } else {
-        deliveryWarning.style.display = "none";
-    }
-
-    if (individualTooLow) {
-        singleWarning.style.display = "block";
-    } else {
-        singleWarning.style.display = "none";
-    }
-
-    if (noBoxesSelected || deliveryTooLow || individualTooLow) {
+    if (noBoxesSelected || deliveryTooLow || orderTooLarge) {
         submitButton.disabled = true;
         submitButton.style.opacity = "0.5";
         submitButton.style.cursor = "not-allowed";
