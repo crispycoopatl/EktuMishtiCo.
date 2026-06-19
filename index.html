@@ -620,20 +620,27 @@ function formatDateLocal(date) {
     return `${year}-${month}-${day}`;
 }
 
-function setMinimumDate(total) {
+function setMinimumDate(total = 0) {
     const dateInput = document.getElementById("requestedDate");
-    const minDateObj = new Date();
+    if (!dateInput) return;
 
-    const daysToAdd = total > 100 ? 7 : 2;
+    const minDateObj = new Date();
+    const daysToAdd = Number(total) > 100 ? 7 : 2;
+
+    minDateObj.setHours(12, 0, 0, 0);
     minDateObj.setDate(minDateObj.getDate() + daysToAdd);
 
     const minDate = formatDateLocal(minDateObj);
-    dateInput.min = minDate;
+    dateInput.setAttribute("min", minDate);
 
     if (dateInput.value && dateInput.value < minDate) {
         dateInput.value = "";
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    setMinimumDate(0);
+});
 
 function calculateTotal() {
     const qty4 = parseInt(document.getElementById("qty4").value) || 0;
