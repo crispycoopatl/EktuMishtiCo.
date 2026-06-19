@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Ektu Mishti Co.</title>
-
+<link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
@@ -311,6 +311,13 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.form-logo{
+    width:60px;
+    height:60px;
+    display:block;
+    margin:0 auto 15px;
+}
     footer {
         text-align:center;
         margin-top: 80px;
@@ -348,7 +355,8 @@
         <span class="close" onclick="closeOrderForm()">&times;</span>
 
         <form class="order-form" action="https://formsubmit.co/mishti@ektumishtico.com" method="POST">
-            <h2>Place Your Order</h2>
+            <img src="favicon.png" alt="EM Logo" class="form-logo">
+			<h2>Place Your Order</h2>
 
             <input type="hidden" name="_subject" value="New Order Request - Ektu Mishti Co.">
 			<input type="hidden" name="_captcha" value="false">
