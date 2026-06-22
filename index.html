@@ -388,6 +388,16 @@
 				<span>9 Piece Box — $9.99</span>
 				<input type="number" id="qty9" name="9 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
 			</div>
+
+			<div class="box-qty-row">
+				<span>50 Piece Box — $49.99</span>
+				<input type="number" id="qty50" name="50 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
+			</div>
+
+			<div class="box-qty-row">
+				<span>80 Piece Box — $79.99</span>
+				<input type="number" id="qty80" name="80 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
+			</div>
 			
 			<div class="box-qty-row">
 				<span>Individual Pieces — $1 each</span>
@@ -523,12 +533,12 @@
             </div>
 			<div class="box">
                 <h4>50 Piece Box</h4>
-                $51.99
+                $49.99
 				<img src="50Piece.jpeg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
 			<div class="box">
                 <h4>80 Piece Box</h4>
-                $82.99
+                $79.99
 				<img src="80Piece.jpeg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
             <div class="box">
@@ -656,9 +666,11 @@ function calculateTotal() {
     const qty4 = parseInt(document.getElementById("qty4").value) || 0;
     const qty6 = parseInt(document.getElementById("qty6").value) || 0;
     const qty9 = parseInt(document.getElementById("qty9").value) || 0;
+	const qty50 = parseInt(document.getElementById("qty50").value) || 0;
+    const qty80 = parseInt(document.getElementById("qty80").value) || 0;
     const qtySingle = parseInt(document.getElementById("qtySingle").value) || 0;
 
-    const total = (qty4 * 4.99) + (qty6 * 6.99) + (qty9 * 9.99) + (qtySingle * 1);
+    const total = (qty4 * 4.99) + (qty6 * 6.99) + (qty9 * 9.99) + (qty50 * 49.99) + (qty80 * 79.99) + (qtySingle * 1);
 
     document.getElementById("total").innerText = "$" + total.toFixed(2);
     document.getElementById("estimatedTotal").value = "$" + total.toFixed(2);
