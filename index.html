@@ -375,27 +375,27 @@
             <label>Order Details</label>
 
 			<div class="box-qty-row">
-				<span>4 Piece Box — $4.99</span>
+				<span>4 Piece Box — $5.99</span>
 				<input type="number" id="qty4" name="4 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
 			</div>
 
 			<div class="box-qty-row">
-				<span>6 Piece Box — $6.99</span>
+				<span>6 Piece Box — $8.99</span>
 				<input type="number" id="qty6" name="6 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
 			</div>
 
 			<div class="box-qty-row">
-				<span>9 Piece Box — $9.99</span>
+				<span>9 Piece Box — $11.99</span>
 				<input type="number" id="qty9" name="9 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
 			</div>
 
 			<div class="box-qty-row">
-				<span>50 Piece Box — $49.99</span>
+				<span>50 Piece Box — $54.99</span>
 				<input type="number" id="qty50" name="50 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
 			</div>
 
 			<div class="box-qty-row">
-				<span>80 Piece Box — $79.99</span>
+				<span>80 Piece Box — $74.99</span>
 				<input type="number" id="qty80" name="80 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
 			</div>
 			
@@ -518,27 +518,27 @@
         <div class="grid">
             <div class="box">
                 <h4>4 Piece Box</h4>
-                $4.99
+                $5.99
 				<img src="4Piece.jpg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>      
             <div class="box">
                 <h4>6 Piece Box</h4>
-                $6.99
+                $8.99
 				<img src="6Piece.jpg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
             <div class="box">
                 <h4>9 Piece Box</h4>
-                $9.99
+                $11.99
 				<img src="9Piece.jpg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
 			<div class="box">
                 <h4>50 Piece Box</h4>
-                $49.99
+                $54.99
 				<img src="50Piece.jpeg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
 			<div class="box">
                 <h4>80 Piece Box</h4>
-                $79.99
+                $74.99
 				<img src="80Piece.jpeg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
             <div class="box">
@@ -670,7 +670,7 @@ function calculateTotal() {
     const qty80 = parseInt(document.getElementById("qty80").value) || 0;
     const qtySingle = parseInt(document.getElementById("qtySingle").value) || 0;
 
-    const total = (qty4 * 4.99) + (qty6 * 6.99) + (qty9 * 9.99) + (qty50 * 49.99) + (qty80 * 79.99) + (qtySingle * 1);
+    const total = (qty4 * 5.99) + (qty6 * 8.99) + (qty9 * 11.99) + (qty50 * 54.99) + (qty80 * 74.99) + (qtySingle * 1);
 
     document.getElementById("total").innerText = "$" + total.toFixed(2);
     document.getElementById("estimatedTotal").value = "$" + total.toFixed(2);
