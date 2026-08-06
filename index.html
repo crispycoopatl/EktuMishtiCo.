@@ -395,7 +395,7 @@
 			</div>
 
 			<div class="box-qty-row">
-				<span>80 Piece Box — $74.99</span>
+				<span>80 Piece Box — $84.99</span>
 				<input type="number" id="qty80" name="80 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
 			</div>
 			
@@ -538,7 +538,7 @@
             </div>
 			<div class="box">
                 <h4>80 Piece Box</h4>
-                $74.99
+                $84.99
 				<img src="80Piece.jpeg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
             <div class="box">
@@ -670,7 +670,7 @@ function calculateTotal() {
     const qty80 = parseInt(document.getElementById("qty80").value) || 0;
     const qtySingle = parseInt(document.getElementById("qtySingle").value) || 0;
 
-    const total = (qty4 * 5.99) + (qty6 * 8.99) + (qty9 * 11.99) + (qty50 * 54.99) + (qty80 * 74.99) + (qtySingle * 1);
+    const total = (qty4 * 5.99) + (qty6 * 8.99) + (qty9 * 11.99) + (qty50 * 54.99) + (qty80 * 84.99) + (qtySingle * 1);
 
     document.getElementById("total").innerText = "$" + total.toFixed(2);
     document.getElementById("estimatedTotal").value = "$" + total.toFixed(2);
