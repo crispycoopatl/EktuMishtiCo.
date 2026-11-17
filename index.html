@@ -374,28 +374,8 @@
             <label>Order Details</label>
 
 			<div class="box-qty-row">
-				<span>4 Piece Box — $5.99</span>
-				<input type="number" id="qty4" name="4 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
-			</div>
-
-			<div class="box-qty-row">
 				<span>6 Piece Box — $8.99</span>
 				<input type="number" id="qty6" name="6 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
-			</div>
-
-			<div class="box-qty-row">
-				<span>9 Piece Box — $11.99</span>
-				<input type="number" id="qty9" name="9 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
-			</div>
-
-			<div class="box-qty-row">
-				<span>50 Piece Box — $54.99</span>
-				<input type="number" id="qty50" name="50 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
-			</div>
-
-			<div class="box-qty-row">
-				<span>80 Piece Box — $84.99</span>
-				<input type="number" id="qty80" name="80 Piece Box Quantity" min="0" value="0" oninput="calculateTotal()">
 			</div>
 			
 			<div class="box-qty-row">
@@ -511,31 +491,11 @@
 <div class="section">
     <div class="title">Kalojam Collection</div>
     <div class="card">
-        <div class="grid">
-            <div class="box">
-                <h4>4 Piece Box</h4>
-                $5.99
-				<img src="4Piece.jpg" class="pricing-img" alt="Kalojam" loading="lazy">
-            </div>      
+        <div class="grid">     
             <div class="box">
                 <h4>6 Piece Box</h4>
                 $8.99
 				<img src="6Piece.jpg" class="pricing-img" alt="Kalojam" loading="lazy">
-            </div>
-            <div class="box">
-                <h4>9 Piece Box</h4>
-                $11.99
-				<img src="9Piece.jpg" class="pricing-img" alt="Kalojam" loading="lazy">
-            </div>
-			<div class="box">
-                <h4>50 Piece Box</h4>
-                $54.99
-				<img src="50Piece.jpeg" class="pricing-img" alt="Kalojam" loading="lazy">
-            </div>
-			<div class="box">
-                <h4>80 Piece Box</h4>
-                $84.99
-				<img src="80Piece.jpeg" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
             <div class="box">
                 <h4>Custom Order</h4>
@@ -659,14 +619,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function calculateTotal() {
-    const qty4 = parseInt(document.getElementById("qty4").value) || 0;
     const qty6 = parseInt(document.getElementById("qty6").value) || 0;
-    const qty9 = parseInt(document.getElementById("qty9").value) || 0;
-	const qty50 = parseInt(document.getElementById("qty50").value) || 0;
-    const qty80 = parseInt(document.getElementById("qty80").value) || 0;
     const qtySingle = parseInt(document.getElementById("qtySingle").value) || 0;
 
-    const total = (qty4 * 5.99) + (qty6 * 8.99) + (qty9 * 11.99) + (qty50 * 54.99) + (qty80 * 84.99) + (qtySingle * 1);
+    const total = (qty6 * 8.99) + (qtySingle * 1);
 
     document.getElementById("total").innerText = "$" + total.toFixed(2);
     document.getElementById("estimatedTotal").value = "$" + total.toFixed(2);
