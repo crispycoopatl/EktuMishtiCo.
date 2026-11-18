@@ -158,14 +158,18 @@
     margin-top: 15px;
     box-shadow: 0 15px 35px rgba(184,107,122,0.25);
 }
+
+
 .pricing-img {
     width: 100%;
-    height: 100%;
+    height: 350px;
     object-fit: contain;
+    object-position: center;
     border-radius: 5px;
     margin-top: 5px;
     background: #fff7fa;
 }
+
 
 .modal {
     display: none;
@@ -491,11 +495,12 @@
             <div class="box">
                 <h4>6 Piece Box</h4>
                 $8.99
-				<img src="6Piece.jpg" class="pricing-img" alt="Kalojam" loading="lazy">
+				<img src="6Piece.png" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
             <div class="box">
                 <h4>Custom Order</h4>
-                Starting at $1 per piece
+                Starting at $1.30 per piece
+				<img src="singleMishti.png" class="pricing-img" alt="Kalojam" loading="lazy">
             </div>
         </div>
     </div>
@@ -618,7 +623,7 @@ function calculateTotal() {
     const qty6 = parseInt(document.getElementById("qty6").value) || 0;
     const qtySingle = parseInt(document.getElementById("qtySingle").value) || 0;
 
-    const total = (qty6 * 8.99) + (qtySingle * 1);
+    const total = (qty6 * 8.99) + (qtySingle * 1.30);
 
     document.getElementById("total").innerText = "$" + total.toFixed(2);
     document.getElementById("estimatedTotal").value = "$" + total.toFixed(2);
